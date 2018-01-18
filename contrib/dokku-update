@@ -47,7 +47,7 @@ main() {
       ;;
     debian|ubuntu)
       apt-get update -qq > /dev/null
-      apt-get -qq -y --force-yes upgrade
+      apt-get -qq -y --force-yes dist-upgrade
       ;;
     centos|opensuse)
       dokku_log_warn "Updating this operating system is not supported"
@@ -60,7 +60,7 @@ main() {
   # update all plugins
   dokku_log_info1 "Updating all plugins"
   for  PLUGIN_NAME in $(dokku plugin:list | grep enabled | awk '$1=$1' | cut -d' ' -f1); do
-    dokku-update-plugin $PLUGIN_NAME
+    dokku-update-plugin "$PLUGIN_NAME"
   done
   dokku plugin:install
 
